@@ -1,0 +1,140 @@
+---
+import GitHub from "./icons/GitHub.astro"
+import NextJS from "./icons/NextJS.astro"
+import Tailwind from "./icons/Tailwind.astro"
+import Link from "./icons/Link.astro"
+import LinkButton from "./LinkButton.astro"
+import Vite from "./icons/Vite.astro"
+import React from "./icons/React.astro"
+import MongoDb from "./icons/MongoDb.astro"
+import Expressjs from "./icons/Expressjs.astro"
+import Angular from "./icons/Angular.astro"
+import Nodejs from "./icons/Nodejs.astro"
+
+const TAGS = {
+  NEXT: {
+    name: "Next.js",
+    class: "bg-black text-white",
+    icon: NextJS,
+  },
+  TAILWIND: {
+    name: "Tailwind CSS",
+    class: "bg-[#003159] text-white",
+    icon: Tailwind,
+  },
+  VITE: {
+    name: "Vite",
+    class: "bg-[#003159] text-white",
+    icon: Vite,
+  },
+  REACT: {
+    name: "React",
+    class: "bg-[#003159] text-white",
+    icon: React,
+  },
+  MONGODB: {
+    name: "MongoDb",
+    class: "bg-[#003159] text-white",
+    icon: MongoDb,
+  },
+  EXPRESSJS: {
+    name: "Express.js",
+    class: "bg-[#003159] text-white",
+    icon: Expressjs,
+  },
+  ANGULAR: {
+    name: "Angular",
+    class: "bg-[#003159] text-white",
+    icon: Angular,
+  },
+  NODEJS:{
+    name: "Node.js",
+    class: "bg-[#003159] text-white",
+    icon: Nodejs,
+  }
+}
+
+const PROJECTS = [
+  {
+    title: "Weather App",
+    description:
+      "WeatherWise es una aplicación meteorológica que proporciona pronósticos precisos con una interfaz intuitiva. Utiliza la API de OpenWeatherMap para ofrecer datos en tiempo real y ayudarte a planificar actividades al aire libre.",
+    link: "https://weather-app-nu-jade-30.vercel.app/",
+    github: "https://github.com/NicoChandia/weather-app",
+    image: "/projects/weatherapp.jpg",
+    tags: [TAGS.REACT, TAGS.VITE, TAGS.TAILWIND],
+  },
+  {
+    title: "ProductFlow",
+    description:
+      "ProductFlow es una aplicación CRUD desarrollada con el stack MERN que permite gestionar productos en tiempo real. Su panel intuitivo facilita crear, visualizar, actualizar y eliminar artículos rápidamente, con una interfaz limpia y funcionalidades ágiles. ",
+      github: "https://github.com/NicoChandia/mern-deploy-railway",
+      link: "https://frontend-production-d2b9.up.railway.app/",
+    image: "/projects/productflow.jpg",
+    tags: [TAGS.REACT, TAGS.NODEJS, TAGS.MONGODB, TAGS.EXPRESSJS, TAGS.VITE],
+  },
+  {
+    title: "Ecommerce",
+    description:
+      "Esta es una aplicación de comercio electrónico desarrollada con Angular 19, que consume la Fake Store API para obtener productos en tiempo real. Se enfoca en buenas prácticas como consumo de APIs REST, manejo de estados y modularización del código en Angular.",
+      github: "https://github.com/NicoChandia/angular-ecommerce",
+      link: "https://angular-ecommerce-iml6.onrender.com",
+    image: "/projects/ecommerce.jpg",
+    tags: [TAGS.ANGULAR, TAGS.TAILWIND],
+  },
+]
+---
+
+<div class="flex flex-col gap-y-16">
+  {
+    PROJECTS.map(({ image, title, description, tags, link, github }) => (
+    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+  <div class="w-full md:w-1/2">
+    <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+      <img alt="Recién llegado vs 5 años en Nueva Zelanda" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
+    </div>
+  </div>
+
+  <div class="w-full md:w-1/2 md:max-w-lg">
+    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+      {title}
+    </h3>
+    <div class="flex flex-wrap mt-2">
+      <ul class="flex flex-row mb-2 gap-x-2">
+          {tags.map((tag) => (
+            <li>
+              <span
+                class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+              >
+                <tag.icon class="size-4" />
+                {tag.name}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+      <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
+      <footer class="flex items-end justify-start mt-4 gap-x-4">
+          {github && (
+            <LinkButton href={github}>
+              <GitHub class="size-6" />
+              Code
+              
+            </LinkButton>
+          )}
+          {link && (
+            <LinkButton href={link}>
+              <Link class="size-4" />
+              Preview
+            </LinkButton>
+          )}
+        </footer>
+    </div>
+  </div>
+</article>
+    ))
+  }
+</div>
+
+
+

@@ -1,0 +1,30 @@
+---
+import ExperienceItem from "./ExperienceItem.astro"
+const EXPERIENCE = [
+  {
+    date: "Enero 2022 - Noviembre 2024",
+    title: "Operador y Programador Centro de Mecanizado",
+    company: "Tacker S.R.L",
+    description:
+      "Encargado de la programación, configuración y operación de centros de mecanizado CNC, asegurando precisión y eficiencia en la fabricación de piezas. Llegué a ser operador oficial, optimizando procesos y mejorando tiempos de producción. ",
+    link: "https://www.tackertools.com/inicio",
+  },
+  {
+    date: "Julio 2021 - Julio 2022",
+    title: "Operador y Programador de Torno CNC",
+    company: "Tacker S.R.L",
+    description:
+      "Responsable de la programación, configuración y operación de tornos CNC, asegurando precisión en la fabricación de piezas.",
+  },
+]
+---
+
+<ol class="relative mt-16">
+  {
+    EXPERIENCE.map((experience) => (
+      <li class="">
+        <ExperienceItem {...experience} />
+      </li>
+    ))
+  }
+</ol>
