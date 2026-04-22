@@ -13,6 +13,8 @@ import Nodejs from "./icons/Nodejs.astro"
 import Python from "./icons/Python.astro"
 import HTML from "./icons/HTML.astro"
 import Js from "./icons/Js.astro"
+import N8N from "./icons/N8N.astro"
+import Postg from "./icons/Postg.astro"
 
 const TAGS = {
   JS: {
@@ -69,17 +71,36 @@ const TAGS = {
     name: "Node.js",
     class: "bg-[#003159] text-white",
     icon: Nodejs,
+  },
+  N8N:{
+    name: "N8N",
+    class: "bg-[#003159] text-white",
+    icon: N8N,
+  },
+  POSTGR:{
+    name: "PostgreSQL",
+    class: "bg-[#003159] text-white",
+    icon: Postg,
   }
 }
 
 const PROJECTS = [
+{
+    title: "LeadPing",
+    description:
+      "LeadPing es un sistema inteligente de captación de leads. Cuando un usuario completa el formulario de contacto, n8n orquesta todo el flujo automáticamente: registra los datos en PostgreSQL y Google Sheets, notifica a la empresa vía Telegram en tiempo real, y un agente de IA responde al correo del interesado de forma personalizada según su consulta.",
+    link: "https://leadping-frontend-production.up.railway.app/",
+    github: "https://github.com/NicoChandia/1erFrontend-Antigravity",
+    image: "/projects/leadping.png",
+    tags: [TAGS.ANGULAR, TAGS.N8N, TAGS.POSTGR],
+  },
   {
     title: "Generator Image",
     description:
       "Generator Image usa modelos de inteligencia artificial de Hugging Face (la plataforma líder en IA open-source) para generar imágenes profesionales desde texto. ¡Escribe, crea y comparte en segundos!",
     link: "https://nicochandia.github.io/frontend-img-generator/",
     github: "https://github.com/NicoChandia/frontend-img-generator",
-    image: "/projects/gatos.png",
+    image: "/projects/gatitos.png",
     tags: [TAGS.PYTHON, TAGS.HTML, TAGS.JS],
   },
   {
@@ -118,7 +139,7 @@ const PROJECTS = [
     <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
   <div class="w-full md:w-1/2">
     <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-      <img alt="Recién llegado vs 5 años en Nueva Zelanda" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
+      <img alt="Problemas cargando la imagen.." class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
     </div>
   </div>
 
