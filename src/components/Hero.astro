@@ -1,45 +1,72 @@
 ---
-const personalImageAlt = "Nicolás Chandia"
 import Badge from "@/components/Badge.astro"
+import SocialPill from "@/components/SocialPill.astro"
+import GitHubIcon from "@/components/icons/GitHub.astro"
 import LinkedInIcon from "@/components/icons/LinkedIn.astro"
 import MailIcon from "@/components/icons/Mail.astro"
-import SocialPill from "@/components/SocialPill.astro"
+
+// Cuando tengas el CV, guardalo en /public (ej: /public/cv-nicolas-chandia.pdf)
+// y poné la ruta acá. Mientras esté vacío, el botón no se muestra.
+const CV_URL = ""
 ---
 
-<div class="max-w-xl">
-  <div class="flex gap-4 mb-4 items-center">
-    <img
-      class="rounded-full shadow-lg w-32 h-32 object-cover"
-      src="/nicoch.png"
-      alt={personalImageAlt}
-    />
+<div class="grid items-center gap-12 md:grid-cols-[1.35fr_1fr] md:gap-14">
+  <div>
     <a
       href="https://www.linkedin.com/in/nicolas-chandia-oyarzo/"
       target="_blank"
-      rel="noopener"
-      class="flex items-center transition md:justify-center md:hover:scale-105"
+      rel="noopener noreferrer"
+      aria-label="Disponible para trabajar: ver mi perfil de LinkedIn"
+      class="hover:opacity-80 transition"
     >
-      <Badge>Disponible para trabajar</Badge>
+      <Badge>disponible para trabajar</Badge>
     </a>
+
+    <h1 class="mt-5 mb-6 text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl text-balance">
+      De programar tornos CNC a <span class="text-accent">automatizar con IA</span>.
+    </h1>
+
+    <p class="max-w-xl text-lg leading-relaxed text-muted text-pretty">
+      Soy <strong class="font-semibold text-fg">Nicolás Chandia</strong>, desarrollador de software en
+      Río Negro, Argentina. Construyo sistemas con Angular, Node y n8n, y hoy exploro visión por
+      computadora para la industria de la región.
+    </p>
+
+    <nav class="flex flex-wrap gap-3 mt-8">
+      <SocialPill href="#proyectos" primary>Ver proyectos</SocialPill>
+      <SocialPill href="https://github.com/NicoChandia">
+        <GitHubIcon class="size-5" />
+        GitHub
+      </SocialPill>
+      {CV_URL && (
+        <SocialPill href={CV_URL} download>
+          Descargar CV
+        </SocialPill>
+      )}
+      <SocialPill href="https://www.linkedin.com/in/nicolas-chandia-oyarzo/">
+        <LinkedInIcon class="size-4" />
+        LinkedIn
+      </SocialPill>
+      <SocialPill href="#contacto">
+        <MailIcon class="size-4" />
+        Email
+      </SocialPill>
+    </nav>
   </div>
-  <h1
-    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
-  >
-    Hola, soy Nicolás Chandia
-  </h1>
-  <p
-    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
-  >
-<strong>Desarrollador de Software</strong> de Rio Negro, Argentina. 
-Apasionado por la automatización, la IA aplicada y el desarrollo web moderno.  </p>
-  <nav class="flex flex-wrap gap-4 mt-8">
-    <SocialPill href="mailto:nicolas.chandia18@gmail.com">
-      <MailIcon class="size-4" />
-      Contáctame
-    </SocialPill>
-    <SocialPill href="https://www.linkedin.com/in/nicolas-chandia-oyarzo/">
-      <LinkedInIcon class="size-4" />
-      LinkedIn
-    </SocialPill>
-  </nav>
+
+  <div class="relative justify-self-center">
+    <img
+      class="object-cover border w-60 h-72 sm:w-72 sm:h-80 rounded-2xl border-line"
+      src="/nicoch.webp"
+      alt="Foto de Nicolás Chandia"
+      width="400"
+      height="400"
+      fetchpriority="high"
+    />
+    <div
+      class="absolute px-3 py-2 font-mono text-xs border shadow-lg -bottom-4 -left-6 sm:-left-8 rounded-xl bg-surface border-line text-muted whitespace-nowrap"
+    >
+      <b class="text-accent">3+ años</b> en industria · <b class="text-accent">docente</b> CET 30
+    </div>
+  </div>
 </div>

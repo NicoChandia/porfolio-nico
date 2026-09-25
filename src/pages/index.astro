@@ -4,7 +4,12 @@ import Layout from "@/layouts/Layout.astro"
 import AboutMe from "@/components/AboutMe.astro"
 import Briefcase from "@/components/icons/Briefcase.astro"
 import CodeIcon from "@/components/icons/Code.astro"
+import CertificateIcon from "@/components/icons/Certificate.astro"
+import Contact from "@/components/Contact.astro"
+import Cursos from "@/components/Cursos.astro"
+import MailIcon from "@/components/icons/Mail.astro"
 import Experience from "@/components/Experience.astro"
+import FeaturedProject from "@/components/FeaturedProject.astro"
 import ProfileCheck from "@/components/icons/ProfileCheck.astro"
 import Projects from "@/components/Projects.astro"
 import SectionContainer from "@/components/SectionContainer.astro"
@@ -13,43 +18,55 @@ import TitleSection from "@/components/TitleSection.astro"
 ---
 
 <Layout
-  title="Porfolio de Nico - Desarrollador de Software"
-  description="Contrátame si quieres un gran compañero."
+  title="Nicolás Chandia · Desarrollador de Software"
+  description="Portafolio de Nicolás Chandia, desarrollador de software en Río Negro, Argentina. Angular, Node.js, automatización con n8n e IA, y visión por computadora."
 >
-  <main class="px-4">
-    <SectionContainer class="py-16 md:py-36">
-      <Hero>
-      </slot>
-    </Hero>
+  <main id="contenido" tabindex="-1" class="px-4 outline-none">
+    <SectionContainer class="pt-32 pb-20 md:pt-40 md:pb-28">
+      <Hero />
     </SectionContainer>
-    <div class="space-y-24">
 
+    <div class="space-y-28">
       <SectionContainer id="proyectos">
-      <TitleSection>
-        <CodeIcon class="size-7" />
-        Proyectos
-      </TitleSection>
-      <Projects />
-    </SectionContainer>
+        <TitleSection>
+          <CodeIcon class="size-7" />
+          Proyectos
+        </TitleSection>
+        <FeaturedProject />
+        <Projects />
+      </SectionContainer>
 
-    
-    <SectionContainer id="experiencia">
-      <TitleSection>
-        <Briefcase class="size-8" />
-        Experiencia laboral
-      </TitleSection>
-      <Experience />
-    </SectionContainer>
+      <SectionContainer id="experiencia">
+        <TitleSection>
+          <Briefcase class="size-8" />
+          Experiencia laboral
+        </TitleSection>
+        <Experience />
+      </SectionContainer>
 
-    
+      <SectionContainer id="cursos">
+        <TitleSection>
+          <CertificateIcon class="size-8" />
+          Cursos y certificaciones
+        </TitleSection>
+        <Cursos />
+      </SectionContainer>
 
-    <SectionContainer id="sobre-mi">
-      <TitleSection>
-        <ProfileCheck class="size-8" />
-        Sobre mí
-      </TitleSection>
-      <AboutMe />
-    </SectionContainer>
-  </div>
+      <SectionContainer id="sobre-mi">
+        <TitleSection>
+          <ProfileCheck class="size-8" />
+          Sobre mí
+        </TitleSection>
+        <AboutMe />
+      </SectionContainer>
+
+      <SectionContainer id="contacto">
+        <TitleSection>
+          <MailIcon class="size-7" />
+          Contacto
+        </TitleSection>
+        <Contact />
+      </SectionContainer>
+    </div>
   </main>
 </Layout>

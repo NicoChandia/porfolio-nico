@@ -7,17 +7,14 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "deploy": "gh-pages -d dist"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "0.5.6",
     "@astrojs/tailwind": "^6.0.0",
-    "@fontsource-variable/onest": "5.0.2",
     "astro": "4.4.5",
     "astro-robots-txt": "1.0.0",
     "autoprefixer": "^10.4.20",
-    "gh-pages": "^6.3.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
     "typescript": "5.3.3"

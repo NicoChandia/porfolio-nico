@@ -91,7 +91,7 @@ const PROJECTS = [
       "LeadPing es un sistema inteligente de captación de leads. Cuando un usuario completa el formulario de contacto, n8n orquesta todo el flujo automáticamente: registra los datos en PostgreSQL y Google Sheets, notifica a la empresa vía Telegram en tiempo real, y un agente de IA responde al correo del interesado de forma personalizada según su consulta.",
     link: "https://leadping-frontend-production.up.railway.app/",
     github: "https://github.com/NicoChandia/1erFrontend-Antigravity",
-    image: "/projects/leadping.png",
+    image: "/projects/leadping.webp",
     tags: [TAGS.ANGULAR, TAGS.N8N, TAGS.POSTGR],
   },
   {
@@ -100,7 +100,7 @@ const PROJECTS = [
       "Generator Image usa modelos de inteligencia artificial de Hugging Face (la plataforma líder en IA open-source) para generar imágenes profesionales desde texto. ¡Escribe, crea y comparte en segundos!",
     link: "https://nicochandia.github.io/frontend-img-generator/",
     github: "https://github.com/NicoChandia/frontend-img-generator",
-    image: "/projects/gatitos.png",
+    image: "/projects/gatitos.webp",
     tags: [TAGS.PYTHON, TAGS.HTML, TAGS.JS],
   },
   {
@@ -109,7 +109,7 @@ const PROJECTS = [
       "WeatherWise es una aplicación meteorológica que proporciona pronósticos precisos con una interfaz intuitiva. Utiliza la API de OpenWeatherMap para ofrecer datos en tiempo real y ayudarte a planificar actividades al aire libre.",
     link: "https://weather-app-nu-jade-30.vercel.app/",
     github: "https://github.com/NicoChandia/weather-app",
-    image: "/projects/foto3.png",
+    image: "/projects/foto3.webp",
     tags: [TAGS.REACT, TAGS.VITE, TAGS.TAILWIND],
   },
   {
@@ -118,7 +118,7 @@ const PROJECTS = [
       "ProductFlow es una aplicación CRUD desarrollada con el stack MERN que permite gestionar productos en tiempo real. Su panel intuitivo facilita crear, visualizar, actualizar y eliminar artículos rápidamente, con una interfaz limpia y funcionalidades ágiles. ",
       github: "https://github.com/NicoChandia/mern-deploy-railway",
       link: "https://frontend-production-d2b9.up.railway.app/",
-    image: "/projects/foto2.png",
+    image: "/projects/foto2.webp",
     tags: [TAGS.REACT, TAGS.NODEJS, TAGS.MONGODB, TAGS.EXPRESSJS, TAGS.VITE],
   },
   {
@@ -127,62 +127,54 @@ const PROJECTS = [
       "Esta es una aplicación de comercio electrónico desarrollada con Angular 19, que consume la Fake Store API para obtener productos en tiempo real. Se enfoca en buenas prácticas como consumo de APIs REST, manejo de estados y modularización del código en Angular.",
       github: "https://github.com/NicoChandia/angular-ecommerce",
       link: "https://angular-ecommerce-iml6.onrender.com",
-    image: "/projects/foto1.png",
+    image: "/projects/foto1.webp",
     tags: [TAGS.ANGULAR, TAGS.TAILWIND],
   },
 ]
 ---
 
-<div class="flex flex-col gap-y-16">
+<div class="grid gap-6 mt-8 sm:grid-cols-2">
   {
     PROJECTS.map(({ image, title, description, tags, link, github }) => (
-    <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-  <div class="w-full md:w-1/2">
-    <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-      <img alt="Problemas cargando la imagen.." class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
-    </div>
-  </div>
+      <article class="flex flex-col overflow-hidden transition border group rounded-2xl border-line bg-surface hover:border-accent/50 hover:-translate-y-1">
+        <div class="overflow-hidden border-b aspect-video border-line">
+          <img
+            alt={`Captura de ${title}`}
+            class="object-cover object-top w-full h-full transition duration-500 group-hover:scale-105"
+            loading="lazy"
+            width="960"
+            height="540"
+            src={image}
+          />
+        </div>
 
-  <div class="w-full md:w-1/2 md:max-w-lg">
-    <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
-      {title}
-    </h3>
-    <div class="flex flex-wrap mt-2">
-      <ul class="flex flex-row mb-2 gap-x-2">
-          {tags.map((tag) => (
-            <li>
-              <span
-                class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-              >
-                <tag.icon class="size-4" />
+        <div class="flex flex-col flex-1 p-6">
+          <h3 class="text-xl font-bold">{title}</h3>
+          <ul class="flex flex-wrap gap-2 mt-3">
+            {tags.map((tag) => (
+              <li class="flex items-center px-2.5 py-1 text-xs border rounded-full gap-x-1.5 border-line text-fg">
+                <tag.icon class="size-3.5" />
                 {tag.name}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-      <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
-      <footer class="flex items-end justify-start mt-4 gap-x-4">
-          {github && (
-            <LinkButton href={github}>
-              <GitHub class="size-6" />
-              Code
-              
-            </LinkButton>
-          )}
-          {link && (
-            <LinkButton href={link}>
-              <Link class="size-4" />
-              Preview
-            </LinkButton>
-          )}
-        </footer>
-    </div>
-  </div>
-</article>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-4 text-sm leading-relaxed text-muted">{description}</p>
+          <footer class="flex gap-3 pt-5 mt-auto">
+            {github && (
+              <LinkButton href={github}>
+                <GitHub class="size-5" />
+                Código
+              </LinkButton>
+            )}
+            {link && (
+              <LinkButton href={link}>
+                <Link class="size-4" />
+                Demo
+              </LinkButton>
+            )}
+          </footer>
+        </div>
+      </article>
     ))
   }
 </div>
-
-
-

@@ -1,0 +1,208 @@
+---
+import Link from "./icons/Link.astro"
+
+/*
+  Para agregar un curso nuevo: sumá un objeto al array CURSOS.
+  - image: opcional. Guardá el certificado en /public/cursos/ (mejor en .webp)
+    y poné la ruta, por ejemplo "/cursos/n8n-raiola.webp".
+    Si hay imagen, se muestra como miniatura y se abre en grande al hacer clic.
+  - hours: opcional. Duración del curso en horas.
+  - verify: opcional. Link de verificación de la credencial.
+  El orden de las tarjetas es el orden del array (conviene lo más reciente primero).
+*/
+
+type Area = "IA y automatización" | "Ciberseguridad" | "Datos" | "Desarrollo web"
+
+interface Curso {
+  title: string
+  issuer: string
+  date: string
+  area: Area
+  skills: string[]
+  hours?: number
+  image?: string
+  verify?: string
+}
+
+const CURSOS: Curso[] = [
+  {
+    title: "Desarrollo con IA: de 0 a Producción",
+    issuer: "BIG school",
+    date: "Mar. 2026",
+    area: "IA y automatización",
+    skills: ["Desarrollo con IA", "Agentes"],
+    hours: 6,
+    image: "/cursos/big-desarrollo-ia-produccion.webp",
+  },
+  {
+    title: "Automatizaciones con n8n e Inteligencia Artificial",
+    issuer: "Raiola Networks",
+    date: "Feb. 2026",
+    area: "IA y automatización",
+    skills: ["n8n", "Automatización", "IA"],
+    image: "/cursos/raiola-n8n.webp",
+  },
+  {
+    title: "Introducción a la Inteligencia Artificial",
+    issuer: "Fundación YPF",
+    date: "Dic. 2025",
+    area: "IA y automatización",
+    skills: ["IA", "Industria Oil & Gas"],
+    hours: 3,
+    image: "/cursos/ypf-ia.webp",
+  },
+  {
+    title: "Iniciación al Desarrollo con IA",
+    issuer: "BIG school",
+    date: "Oct. 2025",
+    area: "IA y automatización",
+    skills: ["Desarrollo con IA", "Herramientas"],
+    hours: 6,
+    image: "/cursos/big-desarrollo-ia-2025.webp",
+  },
+  {
+    title: "Ciberseguridad y Hacking Ético",
+    issuer: "BIG school",
+    date: "Abr. 2026",
+    area: "Ciberseguridad",
+    skills: ["Hacking ético", "Detección de vulnerabilidades"],
+    hours: 6,
+    image: "/cursos/big-ciberseguridad.webp",
+  },
+  {
+    title: "Ciberseguridad",
+    issuer: "Fundación YPF",
+    date: "Dic. 2025",
+    area: "Ciberseguridad",
+    skills: ["Ciberseguridad"],
+    hours: 3,
+    image: "/cursos/ypf-ciberseguridad.webp",
+  },
+  {
+    title: "Introducción a Power BI",
+    issuer: "Fundación YPF",
+    date: "Dic. 2025",
+    area: "Datos",
+    skills: ["Power BI", "Visualización de datos"],
+    hours: 5,
+    image: "/cursos/ypf-powerbi.webp",
+  },
+  {
+    title: "Creación de Páginas Web con v0",
+    issuer: "Platzi",
+    date: "May. 2026",
+    area: "Desarrollo web",
+    skills: ["v0 (Vercel)", "Prompting"],
+    hours: 7,
+    image: "/cursos/platzi-v0.webp",
+    verify: "https://platzi.com/@nicolas.chandia18/",
+  },
+]
+
+const AREAS: Area[] = ["IA y automatización", "Ciberseguridad", "Datos", "Desarrollo web"]
+const grupos = AREAS.map((area) => ({
+  area,
+  cursos: CURSOS.filter((c) => c.area === area),
+})).filter((g) => g.cursos.length > 0)
+---
+
+<div class="flex flex-col gap-y-10">
+  {
+    grupos.map(({ area, cursos }) => (
+      <div>
+        <h3 class="mb-4 text-sm font-semibold tracking-[0.08em] uppercase font-mono text-accent">
+          {area}
+        </h3>
+        <ul class="grid gap-4 sm:grid-cols-2">
+          {cursos.map(({ title, issuer, date, skills, hours, image, verify }) => (
+            <li class="flex flex-col overflow-hidden transition border rounded-2xl bg-surface border-line hover:-translate-y-1 hover:border-accent/50">
+              {image && (
+                <button
+                  type="button"
+                  data-cert-src={image}
+                  data-cert-title={title}
+                  class="relative block w-full overflow-hidden border-b group/cert aspect-[16/7] border-line"
+                  aria-label={`Ver certificado: ${title}`}
+                >
+                  <img
+                    src={image}
+                    alt=""
+                    loading="lazy"
+                    class="object-cover object-center w-full h-full transition duration-500 group-hover/cert:scale-105"
+                  />
+                  <span class="absolute inset-0 flex items-center justify-center text-sm font-medium text-white transition opacity-0 bg-black/50 group-hover/cert:opacity-100">
+                    Ver certificado
+                  </span>
+                </button>
+              )}
+              <div class="flex flex-col flex-1 p-5">
+                <h4 class="text-lg font-bold leading-snug">
+                  {title}
+                </h4>
+                <p class="mt-1 text-sm text-muted">
+                  {issuer} · <time>{date}</time>
+                  {hours && <> · {hours} h</>}
+                </p>
+                <ul class="flex flex-wrap gap-2 mt-3">
+                  {skills.map((skill) => (
+                    <li class="px-2.5 py-1 text-xs border rounded-full border-line text-fg">
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+                {verify && (
+                  <footer class="pt-4 mt-auto">
+                    <a
+                      href={verify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-2 px-3 py-1 text-sm font-semibold transition border rounded-xl bg-surface text-fg border-line hover:border-accent/60 hover:text-accent"
+                    >
+                      <Link class="size-4" />
+                      Verificar
+                    </a>
+                  </footer>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>
+
+<dialog
+  id="cert-dialog"
+  class="p-0 overflow-visible bg-transparent max-w-4xl w-[calc(100%-2rem)] backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+>
+  <div class="relative mx-auto w-fit">
+    <img id="cert-dialog-img" alt="" class="block w-auto h-auto max-w-full max-h-[85vh] mx-auto rounded-xl shadow-2xl" />
+    <form method="dialog" class="absolute top-2 right-2">
+      <button class="px-3 py-1 text-sm text-white rounded-full bg-black/70 hover:bg-black" aria-label="Cerrar">
+        Cerrar ✕
+      </button>
+    </form>
+  </div>
+</dialog>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const dialog = document.getElementById("cert-dialog") as HTMLDialogElement | null
+    const img = document.getElementById("cert-dialog-img") as HTMLImageElement | null
+    if (!dialog || !img) return
+
+    document.querySelectorAll<HTMLButtonElement>("[data-cert-src]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        img.src = btn.dataset.certSrc ?? ""
+        img.alt = `Certificado: ${btn.dataset.certTitle ?? ""}`
+        dialog.showModal()
+      })
+    })
+
+    // Cerrar al hacer clic fuera de la imagen
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close()
+    })
+  })
+</script>

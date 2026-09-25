@@ -1,0 +1,61 @@
+---
+import SocialPill from "@/components/SocialPill.astro"
+import GitHubIcon from "@/components/icons/GitHub.astro"
+import LinkedInIcon from "@/components/icons/LinkedIn.astro"
+import MailIcon from "@/components/icons/Mail.astro"
+
+const EMAIL = "nicolas.chandia18@gmail.com"
+// Abre Gmail en el navegador (funciona aunque la compu no tenga una app de correo configurada)
+const GMAIL = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${encodeURIComponent("Contacto desde tu portafolio")}`
+---
+
+<div class="p-6 border sm:p-8 md:p-12 rounded-2xl border-line bg-surface">
+  <h3 class="text-3xl font-bold tracking-tight md:text-4xl text-balance">
+    ¿Tenés un proyecto o una búsqueda? <span class="text-accent">Hablemos.</span>
+  </h3>
+  <p class="max-w-xl mt-4 leading-relaxed text-muted">
+    Estoy buscando mi próximo desafío como desarrollador en Neuquén, Río Negro o de forma remota.
+    Te respondo a la brevedad.
+  </p>
+
+  <div class="flex flex-wrap items-center gap-3 mt-8">
+    <button
+      type="button"
+      id="copy-email"
+      data-email={EMAIL}
+      class="inline-flex items-center max-w-full gap-3 px-4 py-3 font-mono text-xs sm:px-5 sm:text-sm transition border rounded-xl bg-bg border-line hover:border-accent/60"
+    >
+      <MailIcon class="size-4 text-accent" />
+      <span class="min-w-0 break-all text-left">{EMAIL}</span>
+      <span id="copy-email-label" aria-live="polite" class="font-sans text-xs font-semibold text-accent">Copiar</span>
+    </button>
+    <SocialPill href={GMAIL} primary>
+      Escribime
+    </SocialPill>
+    <SocialPill href="https://www.linkedin.com/in/nicolas-chandia-oyarzo/">
+      <LinkedInIcon class="size-4" />
+      LinkedIn
+    </SocialPill>
+    <SocialPill href="https://github.com/NicoChandia">
+      <GitHubIcon class="size-5" />
+      GitHub
+    </SocialPill>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const btn = document.getElementById("copy-email")
+    const label = document.getElementById("copy-email-label")
+    if (!btn || !label) return
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.email ?? "")
+        label.textContent = "¡Copiado!"
+      } catch {
+        label.textContent = "No se pudo copiar"
+      }
+      setTimeout(() => (label.textContent = "Copiar"), 2000)
+    })
+  })
+</script>
