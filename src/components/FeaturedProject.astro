@@ -2,26 +2,43 @@
 import GitHub from "./icons/GitHub.astro"
 import Link from "./icons/Link.astro"
 import LinkButton from "./LinkButton.astro"
+import Angular from "./icons/Angular.astro"
+import Python from "./icons/Python.astro"
+import SimpleIcon from "./icons/SimpleIcon.astro"
+import { siBootstrap, siFastapi, siUltralytics } from "simple-icons"
 
 /*
   Proyecto destacado. Cuando tengas material real:
   - video: ruta a un .mp4/.webm corto en /public/projects (ej: "/projects/contador.mp4").
     Se reproduce en loop, sin sonido. Si está vacío se muestra la ilustración.
   - poster: imagen que se ve mientras carga el video (o si no hay video).
-  - github / demo: links opcionales.
+  - github: link al repo. backend / frontend: links a cada parte (opcionales).
+  - demo: link a una versión desplegada (opcional).
+  Cada botón aparece solo si tiene link.
 */
+const REPO = "https://github.com/NicoChandia/contador-frutas"
+
 const PROJECT = {
   title: "Contador de frutas",
   description:
-    "Cuenta fruta en la cinta de un empaque en tiempo real con visión por computadora. Detecta y sigue cada fruta con YOLO, y un dashboard en Angular muestra la producción al instante. Próximo paso: clasificar la fruta sana y la defectuosa.",
-  tags: ["Python", "YOLO", "FastAPI", "Angular", "Bootstrap"],
-  video: "",
-  poster: "",
-  github: "",
-  demo: "",
+    "Cuenta fruta en la cinta de un empaque en tiempo real con visión por computadora. Detecta y sigue cada fruta con un modelo YOLO26 entrenado por mí y la cuenta una sola vez al cruzar la línea: 120 de 120 en la prueba con total conocido. Un dashboard en Angular muestra la producción al instante. Próximo paso: clasificar la fruta sana y la defectuosa.",
+  tags: [
+    { name: "Python", icon: Python },
+    { name: "YOLO26", si: siUltralytics },
+    { name: "FastAPI", si: siFastapi },
+    { name: "Angular", icon: Angular },
+    { name: "Bootstrap", si: siBootstrap },
+  ],
+  video: "/projects/contador.mp4",
+  poster: "/projects/contador-poster.webp",
+  github: REPO,
+  // backend / frontend: solo si el proyecto tiene repos separados (este es un monorepo)
+  backend: "",
+  frontend: "",
+  demo: "https://contador-frutas-demo.vercel.app",
 }
 
-const { title, description, tags, video, poster, github, demo } = PROJECT
+const { title, description, tags, video, poster, github, backend, frontend, demo } = PROJECT
 ---
 
 <article
@@ -30,17 +47,31 @@ const { title, description, tags, video, poster, github, demo } = PROJECT
   <div class="relative min-h-[240px] md:min-h-[300px] bg-[#2a2319] overflow-hidden">
     {
       video ? (
-        <video
-          class="absolute inset-0 object-cover w-full h-full"
-          src={video}
-          poster={poster || undefined}
-          autoplay
-          muted
-          loop
-          playsinline
-        />
+        <>
+          <video
+            id="featured-video"
+            class="absolute inset-0 object-cover object-top w-full h-full"
+            poster={poster || undefined}
+            aria-label={`Video del ${title} funcionando: detecta cada fruta en la cinta y el contador sube en vivo`}
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          >
+            {/* MP4 (H.264) lo reproducen casi todos; WebM es el respaldo para navegadores sin H.264 */}
+            <source src={video} type="video/mp4" />
+            <source src={video.replace(/\.mp4$/, ".webm")} type="video/webm" />
+          </video>
+          <button
+            id="featured-video-toggle"
+            type="button"
+            class="absolute flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white transition rounded-full bottom-3 right-3 bg-black/65 hover:bg-black/80"
+          >
+            <span data-label>Pausar</span>
+          </button>
+        </>
       ) : poster ? (
-        <img class="absolute inset-0 object-cover w-full h-full" src={poster} alt={`Captura de ${title}`} loading="lazy" />
+        <img class="absolute inset-0 object-cover object-left-top w-full h-full" src={poster} alt={`Dashboard de ${title}: video de la cinta con cada fruta detectada y contadores en vivo`} width="1200" height="619" loading="lazy" />
       ) : (
         <div class="absolute inset-0" aria-hidden="true">
           <div class="absolute inset-x-0 top-1/2 h-[42%] -translate-y-1/2 belt"></div>
@@ -71,15 +102,31 @@ const { title, description, tags, video, poster, github, demo } = PROJECT
     <p class="leading-relaxed text-muted">{description}</p>
     <ul class="flex flex-wrap gap-2 mt-5">
       {tags.map((tag) => (
-        <li class="px-3 py-1 text-xs border rounded-full border-line text-fg">{tag}</li>
+        <li class="flex items-center px-3 py-1 text-xs border rounded-full gap-x-1.5 border-line text-fg">
+          {tag.icon && <tag.icon class="size-3.5" />}
+          {tag.si && <SimpleIcon icon={tag.si} class="size-3.5" />}
+          {tag.name}
+        </li>
       ))}
     </ul>
-    {(github || demo) && (
-      <footer class="flex gap-3 pt-6 mt-auto">
+    {(github || backend || frontend || demo) && (
+      <footer class="flex flex-wrap gap-3 pt-6 mt-auto">
         {github && (
           <LinkButton href={github}>
             <GitHub class="size-5" />
             Código
+          </LinkButton>
+        )}
+        {backend && (
+          <LinkButton href={backend}>
+            <GitHub class="size-5" />
+            Backend
+          </LinkButton>
+        )}
+        {frontend && (
+          <LinkButton href={frontend}>
+            <GitHub class="size-5" />
+            Frontend
           </LinkButton>
         )}
         {demo && (
@@ -92,6 +139,25 @@ const { title, description, tags, video, poster, github, demo } = PROJECT
     )}
   </div>
 </article>
+
+<script>
+  // El video se reproduce solo, salvo que la persona pida "reducir movimiento" en su sistema.
+  // El botón permite pausarlo siempre (WCAG 2.2.2).
+  document.addEventListener("astro:page-load", () => {
+    const video = document.getElementById("featured-video") as HTMLVideoElement | null
+    const btn = document.getElementById("featured-video-toggle")
+    if (!video || !btn) return
+    const label = btn.querySelector("[data-label]")!
+    const sync = () => {
+      label.textContent = video.paused ? "Reproducir" : "Pausar"
+    }
+    btn.addEventListener("click", () => (video.paused ? video.play() : video.pause()))
+    video.addEventListener("play", sync)
+    video.addEventListener("pause", sync)
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) video.play().catch(() => {})
+    sync()
+  })
+</script>
 
 <style>
   .belt {

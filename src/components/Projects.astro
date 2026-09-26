@@ -84,7 +84,19 @@ const TAGS = {
   }
 }
 
-const PROJECTS = [
+type Tag = (typeof TAGS)[keyof typeof TAGS]
+
+interface Project {
+  title: string
+  description: string
+  image: string
+  tags: Tag[]
+  github?: string
+  backend?: string // si está, el botón de github se llama "Frontend"
+  link?: string
+}
+
+const PROJECTS: Project[] = [
 {
     title: "LeadPing",
     description:
@@ -100,6 +112,7 @@ const PROJECTS = [
       "Generator Image usa modelos de inteligencia artificial de Hugging Face (la plataforma líder en IA open-source) para generar imágenes profesionales desde texto. ¡Escribe, crea y comparte en segundos!",
     link: "https://nicochandia.github.io/frontend-img-generator/",
     github: "https://github.com/NicoChandia/frontend-img-generator",
+    backend: "https://github.com/NicoChandia/backend-img-generator",
     image: "/projects/gatitos.webp",
     tags: [TAGS.PYTHON, TAGS.HTML, TAGS.JS],
   },
@@ -135,7 +148,7 @@ const PROJECTS = [
 
 <div class="grid gap-6 mt-8 sm:grid-cols-2">
   {
-    PROJECTS.map(({ image, title, description, tags, link, github }) => (
+    PROJECTS.map(({ image, title, description, tags, link, github, backend }) => (
       <article class="flex flex-col overflow-hidden transition border group rounded-2xl border-line bg-surface hover:border-accent/50 hover:-translate-y-1">
         <div class="overflow-hidden border-b aspect-video border-line">
           <img
@@ -159,11 +172,17 @@ const PROJECTS = [
             ))}
           </ul>
           <p class="mt-4 text-sm leading-relaxed text-muted">{description}</p>
-          <footer class="flex gap-3 pt-5 mt-auto">
+          <footer class="flex flex-wrap gap-3 pt-5 mt-auto">
             {github && (
               <LinkButton href={github}>
                 <GitHub class="size-5" />
-                Código
+                {backend ? "Frontend" : "Código"}
+              </LinkButton>
+            )}
+            {backend && (
+              <LinkButton href={backend}>
+                <GitHub class="size-5" />
+                Backend
               </LinkButton>
             )}
             {link && (

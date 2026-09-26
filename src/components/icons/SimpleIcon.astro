@@ -1,0 +1,26 @@
+---
+/*
+  Logo de una tecnología desde la librería simple-icons (https://simpleicons.org).
+  Uso:  import { siFastapi } from "simple-icons"
+        <SimpleIcon icon={siFastapi} class="size-4" />
+  Si el color de la marca es muy oscuro (no se vería en modo oscuro), usa el color del texto.
+*/
+import type { SimpleIcon as Icono } from "simple-icons"
+
+interface Props {
+  icon: Icono
+  class?: string
+}
+
+const { icon, class: className } = Astro.props
+
+const r = parseInt(icon.hex.slice(0, 2), 16)
+const g = parseInt(icon.hex.slice(2, 4), 16)
+const b = parseInt(icon.hex.slice(4, 6), 16)
+const luminancia = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+const color = luminancia < 0.25 ? "currentColor" : `#${icon.hex}`
+---
+
+<svg class={className} viewBox="0 0 24 24" fill={color} role="img" aria-hidden="true">
+  <path d={icon.path} />
+</svg>

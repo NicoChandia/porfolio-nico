@@ -7,7 +7,7 @@ import MailIcon from "@/components/icons/Mail.astro"
 
 // Cuando tengas el CV, guardalo en /public (ej: /public/cv-nicolas-chandia.pdf)
 // y poné la ruta acá. Mientras esté vacío, el botón no se muestra.
-const CV_URL = ""
+const CV_URL = "/cv-nicolas-chandia.pdf"
 ---
 
 <div class="grid items-center gap-12 md:grid-cols-[1.35fr_1fr] md:gap-14">
@@ -39,7 +39,8 @@ const CV_URL = ""
         GitHub
       </SocialPill>
       {CV_URL && (
-        <SocialPill href={CV_URL} download>
+        <SocialPill href={CV_URL} download="CV-Nicolas-Chandia.pdf">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg>
           Descargar CV
         </SocialPill>
       )}
@@ -66,7 +67,7 @@ const CV_URL = ""
     <div
       class="absolute px-3 py-2 font-mono text-xs border shadow-lg -bottom-4 -left-6 sm:-left-8 rounded-xl bg-surface border-line text-muted whitespace-nowrap"
     >
-      <b class="text-accent">3+ años</b> en industria · <b class="text-accent">docente</b> CET 30
+      <b class="text-accent" title="Técnico Superior">Téc. Sup.</b> en Desarrollo de Software
     </div>
   </div>
 </div>
