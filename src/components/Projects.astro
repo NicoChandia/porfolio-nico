@@ -81,7 +81,17 @@ const TAGS = {
     name: "PostgreSQL",
     class: "bg-[#003159] text-white",
     icon: Postg,
-  }
+  },
+  DECKGL: {
+    name: "deck.gl",
+    class: "bg-[#003159] text-white",
+    icon: undefined,
+  },
+  MAPLIBRE: {
+    name: "MapLibre",
+    class: "bg-[#003159] text-white",
+    icon: undefined,
+  },
 }
 
 type Tag = (typeof TAGS)[keyof typeof TAGS]
@@ -97,6 +107,15 @@ interface Project {
 }
 
 const PROJECTS: Project[] = [
+  {
+    title: "Vaca Muerta 3D",
+    description:
+      "Vaca Muerta explicada con sus propios datos. Un mapa 3D con los 3.660 pozos y su producción mes a mes desde 2011, el recorrido de cada pozo bajo tierra y un análisis de cuánto rinden los pozos nuevos. Procesé con Python los datos abiertos de la Secretaría de Energía y los dibujo en la GPU con deck.gl.",
+    link: "https://vaca-muerta-3d.vercel.app",
+    github: "https://github.com/NicoChandia/vaca-muerta-3d",
+    image: "/projects/vaca-muerta.webp",
+    tags: [TAGS.ANGULAR, TAGS.DECKGL, TAGS.MAPLIBRE, TAGS.PYTHON],
+  },
 {
     title: "LeadPing",
     description:
@@ -166,7 +185,7 @@ const PROJECTS: Project[] = [
           <ul class="flex flex-wrap gap-2 mt-3">
             {tags.map((tag) => (
               <li class="flex items-center px-2.5 py-1 text-xs border rounded-full gap-x-1.5 border-line text-fg">
-                <tag.icon class="size-3.5" />
+                {tag.icon && <tag.icon class="size-3.5" />}
                 {tag.name}
               </li>
             ))}
