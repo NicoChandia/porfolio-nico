@@ -92,6 +92,16 @@ const TAGS = {
     class: "bg-[#003159] text-white",
     icon: undefined,
   },
+  ASTRO: {
+    name: "Astro",
+    class: "bg-[#003159] text-white",
+    icon: undefined,
+  },
+  TYPESCRIPT: {
+    name: "TypeScript",
+    class: "bg-[#003159] text-white",
+    icon: undefined,
+  },
 }
 
 type Tag = (typeof TAGS)[keyof typeof TAGS]
@@ -107,6 +117,15 @@ interface Project {
 }
 
 const PROJECTS: Project[] = [
+  {
+    title: "Represas de Argentina",
+    description:
+      "Un recorrido narrado por las 28 represas que fiscaliza el ORSEP, de Salta a Chubut. El mapa vuela de represa en represa en vista satelital mientras una voz cuenta la historia de cada una y muestra sus fotos. Reuní en un solo lugar datos que estaban dispersos: las fichas técnicas del ORSEP, las ubicaciones de OpenStreetMap y fotos libres de Wikimedia Commons. Cada represa tiene su página y todo queda disponible en una API abierta en JSON. Hecho con Astro y una isla de React con MapLibre, pensado primero para el celular.",
+    link: "https://represas-argentina.vercel.app",
+    github: "https://github.com/NicoChandia/represas-argentina",
+    image: "/projects/represas.webp",
+    tags: [TAGS.ASTRO, TAGS.REACT, TAGS.MAPLIBRE, TAGS.TYPESCRIPT],
+  },
   {
     title: "Vaca Muerta 3D",
     description:
